@@ -1,0 +1,27 @@
+version: '2.4'
+
+services:
+  ark-asa-server:
+    build: .
+    image: stimzrx/ark-asa-server:latest
+    container_name: ark-asa-server
+    restart: unless-stopped
+    environment:
+      - MAP_NAME=TheIsland
+      - SESSION_NAME=StimzDockerServer
+      - SERVER_ADMIN_PASSWORD=CHANGE#ME!asdf
+      - ASA_PORT=7777
+      - QUERY_PORT=7778
+      - MAX_PLAYERS=20
+      - MODS_LIST=930526
+    ports:
+      - "7777:7777/tcp"
+      - "7777:7777/udp"
+      - "7778:7778/tcp"
+      - "7778:7778/udp"
+    volumes:
+      - "./data/ARK:/home/steam/server"
+      - "./data/tmp:/home/steam/tmp"
+    cpuset: 2-5  # EXAMPLE: pinning CPUs to threads 3-6
+    memswap_limit: 16G
+    mem_limit: 14G  # Setting memory limit to 14GB
